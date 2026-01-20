@@ -18,43 +18,50 @@ def process_file(file_path):
         place = name = date = series_name = volume = note = None
         topic_a = topic_b = form_v = gen_x = chron_y = geo_z = None
         
-        # --- System Control Number (Tag 035) ---
+        # 035 - System Control Number (R)
         for field in elem.findall("marc:datafield[@tag='035']", namespaces=ns):
             sys_control_num = field.findtext("marc:subfield[@code='a']", namespaces=ns) # System control number
 
-        # --- Main Entry-Personal Name (Tag 100) ---
-        for field in elem.findall("marc:datafield[@tag='100']", namespaces=ns):
-            personal_name = field.findtext("marc:subfield[@code='a']", namespaces=ns) # Personal name
-            dates = field.findtext("marc:subfield[@code='d']", namespaces=ns)         # Dates associated with name
+        # 100 Main Entry-Personal Name (NR)
+        personal_name = elem.findtext("marc:datafield[@tag='100']/marc:subfield[@code='a']",
+                                      namespaces=ns)
+        dates = elem.findtext("marc:datafield[@tag='100']/marc:subfield[@code='d']",
+                              namespaces=ns)
 
-        # --- Title Statement (Tag 245) ---
-        for field in elem.findall("marc:datafield[@tag='245']", namespaces=ns):
-            title = field.findtext("marc:subfield[@code='a']", namespaces=ns)     # Title
-            remainder = field.findtext("marc:subfield[@code='b']", namespaces=ns) # Remainder of title
+        # 245 - Title Statement (NR)
+        title = elem.findtext("marc:datafield[@tag='245']/marc:subfield[@code='a']",
+                              namespaces=ns)
+        remainder = elem.findtext("marc:datafield[@tag='245']/marc:subfield[@code='b']",
+                                  namespaces=ns)
 
-        # --- Publication, Distribution, etc. (Imprint) (Tag 260) ---
+        # 260 - Publication, Distribution, etc. (Imprint) (R)
         for field in elem.findall("marc:datafield[@tag='260']", namespaces=ns):
             place = field.findtext("marc:subfield[@code='a']", namespaces=ns) # Place of publication
             name = field.findtext("marc:subfield[@code='b']", namespaces=ns)  # Name of publisher
             date = field.findtext("marc:subfield[@code='c']", namespaces=ns)  # Date of publication
 
-        # --- Series Statement/Added Entry-Title (Tag 440) ---
+        # 440 - Series Statement/Added Entry-Title (R) *Retired, but still used in some places.
         for field in elem.findall("marc:datafield[@tag='440']", namespaces=ns):
             series_name = field.findtext("marc:subfield[@code='a']", namespaces=ns) # Title
             volume = field.findtext("marc:subfield[@code='v']", namespaces=ns)      # Volume/sequential designation
 
-        # --- General Note (Tag 500) ---
+        # 490 - Series Statement (R)
+        for field in elem.findall("marc:datafield[@tag='490']", namespaces=ns):
+            series_name = field.findtext("marc:subfield[@code='a']", namespaces=ns)
+            volume = field.findtext("marc:subfield[@code='v']", namespaces=ns)
+
+        # 500 - General Note (R)
         for field in elem.findall("marc:datafield[@tag='500']", namespaces=ns):
             note = field.findtext("marc:subfield[@code='a']", namespaces=ns) # General note
 
-        # --- Subject Added Entry-Topical Term (Tag 650) ---
+        # 650 - Subject Added Entry-Topical Term (R)
         for field in elem.findall("marc:datafield[@tag='650']", namespaces=ns):
-            topic_a = field.findtext("marc:subfield[@code='a']", namespaces=ns) # Topical term or geographic name entry element
-            topic_b = field.findtext("marc:subfield[@code='b']", namespaces=ns) # Topical term following geographic name entry element
-            form_v = field.findtext("marc:subfield[@code='v']", namespaces=ns)  # Form subdivision
-            gen_x = field.findtext("marc:subfield[@code='x']", namespaces=ns)   # General subdivision
-            chron_y = field.findtext("marc:subfield[@code='y']", namespaces=ns) # Chronological subdivision
-            geo_z = field.findtext("marc:subfield[@code='z']", namespaces=ns)   # Geographic subdivision
+            subject_heading = field.findtext("marc:subfield[@code='a']", namespaces=ns) # Topical term or geographic name entry element
+            subject_subheading = field.findtext("marc:subfield[@code='b']", namespaces=ns) # Topical term following geographic name entry element
+            subject_form = field.findtext("marc:subfield[@code='v']", namespaces=ns)  # Form subdivision
+            subject_general = field.findtext("marc:subfield[@code='x']", namespaces=ns)   # General subdivision
+            subject_chron = field.findtext("marc:subfield[@code='y']", namespaces=ns) # Chronological subdivision
+            subject_geographic = field.findtext("marc:subfield[@code='z']", namespaces=ns)   # Geographic subdivision
         
         elem.clear()
         while elem.getprevious() is not None:

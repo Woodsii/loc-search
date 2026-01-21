@@ -27,12 +27,6 @@ class Book(Base):
         cascade="all, delete-orphan",
         lazy="selectin",
     )
-    notes = relationship(
-        "Note",
-        back_populates="book",
-        cascade="all, delete-orphan",
-        lazy="selectin",
-    )
     subjects = relationship(
         "Subject",
         back_populates="book",
@@ -63,13 +57,6 @@ class Series(Base):
     name = Column(Text)
     volume = Column(Text)
     book = relationship("Book", back_populates="series")
-
-class Note(Base):
-    __tablename__ = 'notes'
-    id = Column(Integer, primary_key=True)
-    book_id = Column(Integer, ForeignKey('books.id', ondelete='CASCADE'), index=True)
-    text = Column(Text)
-    book = relationship("Book", back_populates="notes")
 
 class Subject(Base):
     __tablename__ = 'subjects'

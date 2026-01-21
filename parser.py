@@ -31,9 +31,6 @@ def process_file(file_path):
         # 490 - Series Statement (R)
         series_490 = elem.xpath("marc:datafield[@tag='490']/marc:subfield[@code='a']/text()", namespaces=ns)
 
-        # 500 - General Notes (R)
-        notes = elem.xpath("marc:datafield[@tag='500']/marc:subfield[@code='a']/text()", namespaces=ns)
-
         # 650 - Subject Statement (R)  
         all_subjects = []
         for field in elem.findall("marc:datafield[@tag='650']", namespaces=ns):

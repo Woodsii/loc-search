@@ -5,6 +5,22 @@ from itertools import zip_longest
 from lxml import etree
 from multiprocessing import Pool
 
+
+def clean_value(v):
+    """Clean a string value for use in PostgreSQL array."""
+    if v is None:
+        return ''
+    return v.strip().replace('"', '').replace('\\', '')
+
+
+def pg_array(items):
+    """Convert a list of strings to a PostgreSQL array literal."""
+    if not items:
+        return '{}'
+    cleaned = ['"' + clean_value(v) + '"' for v in items]
+    return '{' + ','.join(cleaned) + '}'
+
+
 def process_file(file_path):
     ns = {'marc': 'http://www.loc.gov/MARC21/slim'}
     record_tag = '{http://www.loc.gov/MARC21/slim}record'
@@ -82,16 +98,15 @@ def process_file(file_path):
         for name in series_440 + series_490:
             series_writer.writerow([book_id, name, None])
 
-        pg_arr = lambda items: '{' + ','.join('"' + v.replace('\\', '\\\\').replace('"', '\\"') + '"' for v in items) + '}'
         for subj in all_subjects:
             subjects_writer.writerow([
                 book_id,
                 subj['heading'],
                 subj['subheading'],
-                pg_arr(subj['forms']),
-                pg_arr(subj['generals']),
-                pg_arr(subj['chrons']),
-                pg_arr(subj['geographics'])
+                pg_array(subj['forms']),
+                pg_array(subj['generals']),
+                pg_array(subj['chrons']),
+                pg_array(subj['geographics'])
             ])
 
         elem.clear()

@@ -82,7 +82,7 @@ def process_file(file_path):
         for name in series_440 + series_490:
             series_writer.writerow([book_id, name, None])
 
-        pg_arr = lambda items: '{' + ','.join('"' + v.replace('"', '""') + '"' for v in items) + '}'
+        pg_arr = lambda items: '{' + ','.join('"' + v.replace('\\', '\\\\').replace('"', '\\"') + '"' for v in items) + '}'
         for subj in all_subjects:
             subjects_writer.writerow([
                 book_id,

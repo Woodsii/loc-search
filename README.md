@@ -52,6 +52,6 @@ python3 tables.py
 
 #### Run the uploader:
 ```
-python3 uplaoder.py
+python3 uploader.py
 ```
 Now the tables defined in tables.py will be filled with all of the datasets books.

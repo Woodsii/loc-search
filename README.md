@@ -13,7 +13,7 @@ A TUI Search engine for the Library of Congress' books.
 ### Instructions
 Pull repo into choosen dir:
 ```
-git pull https://github.com/zachjesus/loc-search.git
+git clone https://github.com/zachjesus/loc-search.git
 ```
 
 #### Run the XML downloader:
@@ -52,6 +52,6 @@ python3 tables.py
 
 #### Run the uploader:
 ```
-python3 uplaoder.py
+python3 uploader.py
 ```
 Now the tables defined in tables.py will be filled with all of the datasets books.

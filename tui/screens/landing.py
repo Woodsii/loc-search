@@ -12,3 +12,4 @@ class LandingScreen(Screen):
     
     def compose(self) -> ComposeResult:
         yield Static("Landing Screen", id="title")
+        yield Static("Press s to continue", id="cont")

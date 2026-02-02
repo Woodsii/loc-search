@@ -11,4 +11,4 @@ from textual.widgets import Static
 class AuthorScreen(Screen): 
     
     def compose(self) -> ComposeResult:
-        yield Static(" Work Page ", id="title")
+        yield Static(" Author Page ", id="title")

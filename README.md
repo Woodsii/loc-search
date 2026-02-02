@@ -13,7 +13,7 @@ A TUI Search engine for the Library of Congress' books.
 ### Instructions
 Pull repo into choosen dir:
 ```
-git pull https://github.com/zachjesus/loc-search.git
+git clone https://github.com/zachjesus/loc-search.git
 ```
 
 #### Run the XML downloader:

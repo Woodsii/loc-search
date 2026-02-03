@@ -11,7 +11,7 @@ from screens.work import WorkScreen
 
 # my idea currently is to just handle routing here, on the app level.
 class LoCBrowser(App):
-    
+    CSS_PATH = "main.tcss"
     SCREENS = {"SearchScreen": SearchScreen}
     TITLE = "Library of Congress Browser"
     BINDINGS = [
@@ -22,6 +22,7 @@ class LoCBrowser(App):
     def compose(self) -> ComposeResult:
         yield Header()
 
+    # TODO Fix this with @on tags
     def on_button_pressed(self, event: Button.Pressed) -> None:        
         if event.button.id == "start-search": 
             self.push_screen(SearchResultsScreen())

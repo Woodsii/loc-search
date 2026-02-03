@@ -1,0 +1,42 @@
+SearchTerm {
+    align: center middle;
+    border: ascii;
+    height: auto;
+    padding: 0 2;
+
+    &HorizontalGroup {
+        * {
+            background: blue;
+        }
+    }
+
+    .search-fields {
+        width: 1fr;
+    }
+
+    .search-input {
+        width: 4fr;
+    }
+}
+
+#start-search {
+    align: center middle;
+}
+
+#screen-search {
+    height: auto;
+    align: center middle;
+    padding: 0 2 0 2;
+
+    * {
+        height: auto;
+    }
+
+    #button-bar {
+        align: center middle;
+        padding: 1 2 0 2;
+        * {
+            margin: 0 2;
+        }
+    }
+}

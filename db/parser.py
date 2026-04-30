@@ -120,7 +120,7 @@ def process_file(file_path):
     subjects_file.close()
 
 if __name__ == '__main__':
-    base_path = '/var/tmp/loc_data/BooksAll.2016.part{:02d}.xml'
+    base_path = './loc_data/BooksAll.2016.part{:02d}.xml'
     files = [base_path.format(i) for i in range(1, 43)]
 
     os.makedirs('/var/tmp/csvs', exist_ok=True)

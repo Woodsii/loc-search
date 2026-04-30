@@ -1,6 +1,11 @@
 import os
 from sqlalchemy import ARRAY, Column, Integer, Text, ForeignKey, create_engine
 from sqlalchemy.orm import declarative_base, relationship
+from dotenv import load_dotenv
+
+load_dotenv()
+PG_URL = os.getenv("PG_URL")
+
 Base = declarative_base()
 
 class Book(Base):
@@ -71,8 +76,8 @@ class Subject(Base):
     book = relationship("Book", back_populates="subjects")
 
 def init_db(url: str | None = None, echo: bool = False):
-    url = url or os.environ.get("LOCDB_URL", "postgresql:///locdb")
-    engine = create_engine(url, echo=echo)
+    # url = url or os.environ.get("LOCDB_URL", "postgresql:///locdb")
+    engine = create_engine(PG_URL, echo=echo)
     Base.metadata.create_all(engine)
     return engine
 

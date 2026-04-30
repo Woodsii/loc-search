@@ -1,5 +1,9 @@
 import os
 from sqlalchemy import create_engine
+from dotenv import load_dotenv
+
+load_dotenv()
+PG_URL = os.getenv("PG_URL")
 
 CSV_DIR = '/var/tmp/csvs'
 
@@ -12,8 +16,8 @@ TABLES = [
 ]
 
 if __name__ == '__main__':
-    url = os.environ.get('LOCDB_URL', 'postgresql:///locdb')
-    engine = create_engine(url)
+    # url = os.environ.get('LOCDB_URL', 'postgresql:///locdb')
+    engine = create_engine(PG_URL)
 
     all_csvs = sorted(os.listdir(CSV_DIR))
 

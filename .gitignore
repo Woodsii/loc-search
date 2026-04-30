@@ -2,3 +2,5 @@ __pycache__
 todo.txt
 .venv
 venv
+loc_data
+.env
